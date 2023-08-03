@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Use the title from a page's frontmatter if it has one -->
+    <title>Test aritmetike</title>
+
+    <style>
+      nav {
+        max-width: 700px;
+        margin: 0 auto 100px auto;
+      }
+
+      .main-content {
+        max-width: 700px;
+        margin: 0 auto 100px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a>
+      …
+      <a href="/how_i_got_here.html">History</a>
+      …
+      <a href="/cv.html">CV</a>
+    </nav>
+
+    <div class="main-content">
+      <h1>Test aritmetike</h1>
+
+<h2>Sabiranje i oduzimanje</h2>
+
+<div class="task addition">
+  <span class="numbers">
+    <span class="number"></span>
+    +
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task addition">
+  <span class="numbers">
+    <span class="number"></span>
+    +
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task addition">
+  <span class="numbers">
+    <span class="number"></span>
+    +
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task addition">
+  <span class="numbers">
+    <span class="number"></span>
+    +
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task addition">
+  <span class="numbers">
+    <span class="number"></span>
+    +
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<h2>Množenje i deljenje</h2>
+
+<div class="task multiplication">
+  <span class="numbers">
+    <span class="number"></span>
+    x
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task multiplication">
+  <span class="numbers">
+    <span class="number"></span>
+    x
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task multiplication">
+  <span class="numbers">
+    <span class="number"></span>
+    x
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task multiplication">
+  <span class="numbers">
+    <span class="number"></span>
+    x
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div class="task multiplication">
+  <span class="numbers">
+    <span class="number"></span>
+    x
+    <span class="number"></span>
+    =
+  </span>
+  <input class="result" type="number">
+  <span class="message"></span>
+</div>
+
+<div>
+  <button id="submit-test" type="button">Proveri Rešenja</button>
+</div>
+
+<script>
+(function() {
+  function generateSum(n) {
+    var numbers = [];
+
+    for (var i = 0; i < n; i++) {
+      var number = Math.round(Math.random() * 10000);
+
+      numbers.push(number);
+    }
+
+    numbers.push(numbers.reduce((sum, x) => sum + x));
+
+    return numbers;
+  }
+
+  function generateTasks(tasks, generator) {
+    tasks.forEach(function(task, i) {
+      var elements = task.querySelectorAll(".number"),
+          numbers = generator(elements.length);
+
+      elements.forEach(function(el, i) {
+        el.textContent = numbers[i];
+      });
+
+      task.querySelector(".result").setAttribute(
+        "data-result",
+        numbers[numbers.length - 1]
+      );
+    });
+  }
+
+  function generateAdditions() {
+    var tasks = document.querySelectorAll(".task.addition");
+
+    generateTasks(tasks, generateSum);
+  }
+
+  function generateMultiplication(n) {
+    // n is ignored. The function always generates 2 numbers and the result.
+    var n1 = Math.round(Math.random() * 100),
+        n2 = Math.round(Math.random() * 100);
+
+    return [n1, n2, n1 * n2];
+  }
+
+  function generateMultiplications() {
+    var tasks = document.querySelectorAll(".task.multiplication");
+
+    generateTasks(tasks, generateMultiplication);
+  }
+
+  function submitTest() {
+    var tasks = document.querySelectorAll(".task");
+
+    tasks.forEach(function(task, i) {
+      var $result = task.querySelector(".result"),
+          $message = task.querySelector(".message");
+
+      if ($result.value === $result.getAttribute("data-result")) {
+        $message.textContent = "Tačno";
+      } else {
+        $message.textContent = "Netačno";
+      }
+    });
+  }
+
+  generateAdditions();
+  generateMultiplications();
+
+  document.getElementById("submit-test").addEventListener("click", submitTest);
+} ());
+</script>
+
+<style>
+.task {
+  margin-bottom: 10px;
+}
+
+.numbers {
+  display: inline-block;
+  min-width: 100px;
+}
+</style>
+
+    </div>
+  </body>
+</html>
